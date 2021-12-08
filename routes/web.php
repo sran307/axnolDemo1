@@ -1,6 +1,9 @@
 <?php
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\{
+    RegisterController,
+    LoginController
+    };
 
 /*
 |--------------------------------------------------------------------------
@@ -35,4 +38,8 @@ Route::group(['middleware' => ['web', 'loginSection']], function(){
 });
 
 
+Route::get('login/google', 'LoginController@redirectToGoogle')->name("login.google");
+Route::get('login/google/callback', 'LoginController@handleGoogleCallback');
 
+Route::get('login/facebook', 'LoginController@redirectToFacebook')->name("login.facebook");
+Route::get('login/facebook/callback', 'LoginController@handleFacebookCallback');

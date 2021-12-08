@@ -70,7 +70,8 @@ user name alreaddy taken or not. If it is not taken then data is registered in t
                     <button type="submit">Register</button>
                 </fieldset>
             </form>
-            
+            <a href="{{route('login.google')}}"><button>login with Google</button></a>
+            <a href="{{route('login.facebook')}}"><button>login with facebook</button></a>
         </div>
     </section>
 @endsection
