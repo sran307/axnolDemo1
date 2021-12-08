@@ -26,7 +26,7 @@ Route::get('/clear_cache', function() {
 Route::get('/',[RegisterController::class, "layout"])->name("home");
 Route::get("/register","RegisterController@register")->name("register");
 Route::view("/login","login")->name("login");
-Route::post("/get_state",[RegisterController::class, "state"])->name("state");
+Route::post("get_state",[RegisterController::class, "state"]);
 Route::post("/registration","RegisterController@registration");
 Route::post("/login_form","RegisterController@login_form")->name("login_form");
 

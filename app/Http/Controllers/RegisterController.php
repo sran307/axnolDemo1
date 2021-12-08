@@ -24,14 +24,14 @@ class RegisterController extends Controller
     public function state(Request $request)
     {
         $id=$request->post("country_id");
-        //$state=state::where("country_id",$id)->get();
+        $state=state::where("country_id",$id)->get();
         $data='';
         foreach($state as $value)
         {
             $data.="<option value='$value->id'>$value->state</option>";
         }
         return response()->json([
-            "data"=>$id
+            "data"=>$data
         ]);
     }
     public function registration(Request $request){

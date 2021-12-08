@@ -15,8 +15,8 @@ class LoginController extends Controller
     public function handleGoogleCallback()
     {
         $user = Socialite::driver('google')->user();
-        dd($user);
-        $this->_registerLoginUser($user);
+        //dd($user);
+        $this->registerLoginUser($user);
         session()->put(["login_id"=>$user->id, "name"=>$user->name]);
         return redirect()->route("home")->with(Session::flash("message", "login successfull"), Session::flash("alert-class", "alert-success"));
 
@@ -33,7 +33,7 @@ class LoginController extends Controller
 
         // $user->token;
     }
-    protected function _registerLoginUser($data)
+    protected function registerLoginUser($data)
     {
         $user=register::where("email",$data->email)->first();
         if(!$user)

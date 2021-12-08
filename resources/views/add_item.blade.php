@@ -69,11 +69,11 @@
                 });
                 $.ajax({
                     method: "post",
-                    url: "{{route('state')}}",
+                    url: "get_state",
                     data:{country_id:country_id},
                     dataType: "json",
                     success: function (response) {
-                        console.log(response);
+                        //console.log(response);
                         var html='<option value="">Select a State</option>';
                         html+=response.data;
                         $('#state_id'+state_id).html(html);
