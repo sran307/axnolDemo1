@@ -35,6 +35,20 @@ Route::post("/add_item_form","RegisterController@add_item_form");
 Route::group(['middleware' => ['web', 'loginSection']], function(){
     Route::view("/add_item","add_item")->name("add_item");
     Route::get("/logout","RegisterController@logout")->name("logout");
+    Route::group([
+        'prefix'=>'admin',
+        'middleware'=>'is_admin',
+        "as"=>"admin."
+    ], function(){
+        Route::get('show_item',[App\Http\Controllers\admin\ShowData::class,'index'])->name("show_item");
+    });
+
+    Route::group([
+        'prefix'=>'user',
+        "as"=>"user."
+    ], function(){
+        Route::get('show_item',[\App\Http\Controllers\user\ShowData::class,'index'])->name("show_item");
+    });
 });
 
 

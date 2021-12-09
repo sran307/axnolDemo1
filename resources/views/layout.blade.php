@@ -22,8 +22,12 @@
             <ul class="navbar-nav">
                 <li class="nav-item active"><a href="{{route('home')}}" class="nav-link">home</a></li>
                <li class="nav-item"><a href="{{route('add_item')}}" class="nav-link">add item</a></li>
-                @if(session()->has("login_id"))
-                    <li class="nav-item"><a href="" class="nav-link">show items</a></li>
+                @if((session()->has("login_id")) && (session()->get("role")==1))
+                    <li class="nav-item"><a href="{{route('admin.show_item')}}" class="nav-link">show items</a></li>
+                    <li class="nav-item"><a href="{{route('logout')}}" class="nav-link">logout</a></li>
+                    <p>{{session()->get("name")}}</p>
+                @elseif((session()->has("login_id")) && (session()->get("role")!=1))
+                    <li class="nav-item"><a href="{{route('user.show_item')}}" class="nav-link">show items</a></li>
                     <li class="nav-item"><a href="{{route('logout')}}" class="nav-link">logout</a></li>
                     <p>{{session()->get("name")}}</p>
                 @elseif(!session()->has("login_id"))

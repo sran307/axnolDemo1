@@ -9,7 +9,8 @@ class state extends Model
 {
     use HasFactory;
     protected $guarded=[];
-    public function state(){
-        return $this->hasOne(state::class, "country_id");
+    public function state()
+    {
+        return $this->hasMany(state::class, "state_id");
     }
 }

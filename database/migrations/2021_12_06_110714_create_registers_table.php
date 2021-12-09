@@ -21,6 +21,7 @@ class CreateRegistersTable extends Migration
             $table->string("avatar")->nullable();
             $table->string("password")->nullable();
             $table->string("image")->nullable();
+            $table->string("role")->nullable();
             $table->timestamps();
         });
     }

@@ -18,6 +18,7 @@
 ?>
     <div class="container">
         <form action="add_item_form" method="post" enctype="multipart/form-data">
+        @csrf
             <table class="table table-bordered">
                 <thead>
                     <tr>
@@ -33,6 +34,7 @@
 
                 </tbody>
             </table>
+            <button type="submit">submit</button>
         </form>
     </div>
 @endsection

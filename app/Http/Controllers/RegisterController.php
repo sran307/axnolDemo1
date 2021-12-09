@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 //namespace Illuminate\Support\Facades;
 use Illuminate\Http\Request;
-use App\Models\state;
-use App\Models\country;
-use App\Models\register;
+use App\Models\{
+    state, country, Add_item, register
+};
 
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Session;
@@ -72,8 +72,9 @@ class RegisterController extends Controller
             {
                 $id=$value["id"];
                 $name=$value["name"];
+                $role_id=$value->role;
             }
-            session()->put(["login_id"=>$id, "name"=>$name]);
+            session()->put(["login_id"=>$id, "name"=>$name, "role"=>$role_id]);
             return redirect()->route("home")->with(Session::flash("message", "login successfull"), Session::flash("alert-class", "alert-success"));
         }
         else
@@ -91,6 +92,7 @@ class RegisterController extends Controller
     {
         $name=$request->post("name");
         $country=$request->post("country");
+        //dd($country);
         $state=$request->post("state");
 
         $images=$request->file("image");
@@ -103,24 +105,28 @@ class RegisterController extends Controller
             array_push($img, $image_name= $image->getClientOriginalName());
             $image->move($destination, $image_name);
         }
-        for($i=0; $i<length($name); $i++)
-        {
+        
             DB::beginTransaction();
             try
             {
-                add_item::create([
-                    "name"=>$name[$i],
-                    "country"=>$country[$i],
-                    "state"=>$state[$i],
-                    "image"=>$img[$i]
-                ]);
-                DB::commit();
-
+                for($i=0; $i<count($name); $i++)
+                {
+                    add_item::create([
+                        "name"=>$name[$i],
+                        "country_id"=>$country[$i],
+                        "state_id"=>$state[$i],
+                        "image"=>$img[$i]
+                    ]);
+                    DB::commit();
+                }
+                return redirect()->route("home");
             }
             catch(\Exception $e)
             {
                 DB::rollback();
+                return back();
             }
-        }
+
+        
     }
 }
